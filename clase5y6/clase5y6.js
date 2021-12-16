@@ -140,17 +140,16 @@ function calcularTotalConIVA(total) {
 }
 
 function mostrarDetalle(total, itemsDelCarrito){
-    let textoItems = itemsDelCarrito.sort((a,b) => compararNombresProducto(a.producto, b.producto)).map(item => "-Producto: " + item.producto.nombre + " -Cantidad: " + item.cantidad + " -Precio por unidad: " + item.producto.precio).join("\n");
+    let textoItems = itemsDelCarrito.sort((a,b) => compararNombresProducto(a.producto, b.producto)).map(item => "-Producto: " + item.producto.nombre + " -Cantidad: " + item.cantidad + " -Precio por unidad: $" + item.producto.precio + ".-").join("\n");
     let textoDescuentos = itemsDelCarrito.filter(itemActual => itemActual.producto.porcentageDescuento > 0).map(itemConDescuento => `${itemConDescuento.producto.nombre} (${itemConDescuento.producto.porcentageDescuento}%)`)
     
     let texto = textoItems + "\n" 
     if(textoDescuentos.length > 0){
-        texto += "Los productos con descuento son: \n" + textoDescuentos.join("\n") + "\n"
+        texto += "\nProductos con descuento: \n" + textoDescuentos.join("\n") + "\n"
     }
     
-    texto +="Su total hasta aquí es: $" + total + "\n"
-    + "Su total de IVA es: $"  + calcularIVA(total) + "\n"
-    + "Su total final es: $" + calcularTotalConIVA(total)
+
+    texto += `\nSu total hasta aquí es: $${total}.- \nSu total de IVA es: $${calcularIVA(total)}.- \nSu total final es: $${calcularTotalConIVA(total)}.-`
 
     alert (texto); 
 } 
